@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.JComboBox;
 
 public class GestionEmpleadosController {
 
@@ -26,27 +27,37 @@ public class GestionEmpleadosController {
         this.empleadosVista.getBtn_buscarEmpleado().addActionListener(e -> buscarEmpleado());
         this.empleadosVista.getBtn_eliminarEmpleado().addActionListener(e -> eliminarEmpleado());
         this.empleadosVista.getBtn_verEmpleados().addActionListener(e -> verListaEmpleados());
-
+        
         this.empleadosVista.setVisible(true);
     }
 
     private void registrarEmpleado() {
-        String nombre = empleadosVista.getTxt_nombre().getText();
-        String apellidos = empleadosVista.getTxt_apellidos().getText();
-        String telefono = empleadosVista.getTxt_telefono().getText();
-        String email = empleadosVista.getTxt_email().getText();
+        String nombre = empleadosVista.getTxt_nombre().getText().trim();
+        String apellidos = empleadosVista.getTxt_apellidos().getText().trim();
+        String telefono = empleadosVista.getTxt_telefono().getText().trim();
+        String email = empleadosVista.getTxt_email().getText().trim();
         String departamento = (String) empleadosVista.getBox_departamento().getSelectedItem(); // Obtener del ComboBox
 
-        if (nombre.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || email.isEmpty() || departamento == null) {
+        // Validar que los campos no estén vacíos
+        if (nombre.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(empleadosVista, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // Validar que el departamento no sea la opción predeterminada
+        if ("--selecionar una opcion--".equals(departamento)) {
+            JOptionPane.showMessageDialog(empleadosVista, "Por favor selecciona un departamento válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear el objeto empleado y registrarlo
         EmpleadoModelo empleado = new EmpleadoModelo(nombre, apellidos, telefono, email, departamento);
         boolean registrado = empleadoDAO.registrarEmpleado(empleado);
 
+        // Confirmar el resultado
         if (registrado) {
             JOptionPane.showMessageDialog(empleadosVista, "Empleado registrado con éxito.", "Registrar", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCampos(); // Limpia los campos después de registrar
         } else {
             JOptionPane.showMessageDialog(empleadosVista, "Error al registrar el empleado.", "Registrar", JOptionPane.ERROR_MESSAGE);
         }
@@ -152,4 +163,15 @@ public class GestionEmpleadosController {
             });
         }
     }
+
+    private void limpiarCampos() {
+        empleadosVista.getTxt_nombre().setText("");
+        empleadosVista.getTxt_apellidos().setText("");
+        empleadosVista.getTxt_telefono().setText("");
+        empleadosVista.getTxt_email().setText("");
+        empleadosVista.getBox_departamento().setSelectedIndex(0); // Volver a la opción predeterminada
+    }
+
+    
+
 }

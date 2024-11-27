@@ -118,16 +118,42 @@ public class GestionLibrosController implements ActionListener {
     }
 
     private void añadirLibro() {
-        String titulo = librosVista.getTxt_titulo().getText();
-        String autor = librosVista.getTxt_autor().getText();
-        String isbn = librosVista.getTxt_isbn().getText();
-        String genero = librosVista.getTxt_genero().getText();
+        String titulo = librosVista.getTxt_titulo().getText().trim();
+        String autor = librosVista.getTxt_autor().getText().trim();
+        String isbn = librosVista.getTxt_isbn().getText().trim();
+        String genero = librosVista.getTxt_genero().getText().trim();
+        String editorial = (String) librosVista.getComboEditorial().getSelectedItem();
+        String provincia = (String) librosVista.getComboProvincias().getSelectedItem();
 
-        boolean agregado = libroDAO.agregar(new LibroModelo(titulo, autor, isbn, genero));
-        if (agregado) {
-            JOptionPane.showMessageDialog(librosVista, "Libro añadido con éxito.", "Añadir", JOptionPane.INFORMATION_MESSAGE);
+        // Validar campos vacíos
+        if (titulo.isEmpty() || autor.isEmpty() || isbn.isEmpty() || genero.isEmpty()) {
+            JOptionPane.showMessageDialog(librosVista, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar combo box de editorial
+        if (editorial.equals("--Seleccione una editorial--")) {
+            JOptionPane.showMessageDialog(librosVista, "Por favor selecciona una editorial válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar combo box de provincias
+        if (provincia.equals("--Seleccione una Provincia--")) {
+            JOptionPane.showMessageDialog(librosVista, "Por favor selecciona una provincia válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear el objeto libro
+        LibroModelo libro = new LibroModelo(titulo, autor, isbn, genero, editorial, provincia);
+
+        // Llamar al DAO para registrar el libro
+        boolean registrado = libroDAO.agregar(libro);
+
+        if (registrado) {
+            JOptionPane.showMessageDialog(librosVista, "Libro agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCamposLibro(); // Limpia los campos después de agregar
         } else {
-            JOptionPane.showMessageDialog(librosVista, "No se pudo añadir el libro.", "Añadir", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(librosVista, "Error al agregar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -195,6 +221,15 @@ public class GestionLibrosController implements ActionListener {
     private void verListaLibros() {
         TablaLibrosVista tablaVista = new TablaLibrosVista();
         new TablaLibrosController(tablaVista);
+    }
+
+    private void limpiarCamposLibro() {
+        librosVista.getTxt_titulo().setText("");
+        librosVista.getTxt_autor().setText("");
+        librosVista.getTxt_isbn().setText("");
+        librosVista.getTxt_genero().setText("");
+        librosVista.getComboEditorial().setSelectedIndex(0); // Volver a la opción predeterminada
+        librosVista.getComboProvincias().setSelectedIndex(0); // Volver a la opción predeterminada
     }
 
 }

@@ -11,18 +11,22 @@ import java.util.List;
 public class LibroDAO {
 
     public boolean agregar(LibroModelo libro) {
-        String sql = "INSERT INTO libros (titulo, autor, isbn, genero) VALUES (?, ?, ?, ?)";
-        try (Connection conexion = ConexionDB.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+        String sql = "INSERT INTO libros (titulo, autor, isbn, genero, editorial, provincia) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConexionDB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, libro.getTitulo());
             ps.setString(2, libro.getAutor());
             ps.setString(3, libro.getIsbn());
             ps.setString(4, libro.getGenero());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
+            ps.setString(5, libro.getEditorial());
+            ps.setString(6, libro.getProvincia());
+
+            return ps.executeUpdate() > 0; // Retorna true si se insertó correctamente
+        } catch (Exception e) {
             System.err.println("Error al agregar libro: " + e.getMessage());
-            return false;
         }
+        return false; // Retorna false si ocurrió un error
     }
 
     public boolean eliminar(int id, String titulo) {
