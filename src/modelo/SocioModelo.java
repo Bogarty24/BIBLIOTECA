@@ -2,23 +2,34 @@ package modelo;
 
 public class SocioModelo {
 
-    private int idSocio;
+    private int idSocio; // ID único, generado automáticamente por la base de datos
     private String nombre;
+    private String correo;
     private String direccion;
     private String telefono;
-    private String correo;
 
+    // Constructor vacío
     public SocioModelo() {
     }
 
-    public SocioModelo(int idSocio, String nombre, String direccion, String telefono, String correo) {
+    // Constructor completo (incluye ID)
+    public SocioModelo(int idSocio, String nombre, String correo, String direccion, String telefono) {
         this.idSocio = idSocio;
         this.nombre = nombre;
+        this.correo = correo;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.correo = correo;
     }
 
+    // Constructor sin ID (para registrar nuevos socios)
+    public SocioModelo(String nombre, String correo, String direccion, String telefono) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
+    // Getters y Setters
     public int getIdSocio() {
         return idSocio;
     }
@@ -33,6 +44,14 @@ public class SocioModelo {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getDireccion() {
@@ -51,11 +70,14 @@ public class SocioModelo {
         this.telefono = telefono;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    @Override
+    public String toString() {
+        return "SocioModelo{"
+                + "idSocio=" + idSocio
+                + ", nombre='" + nombre + '\''
+                + ", correo='" + correo + '\''
+                + ", direccion='" + direccion + '\''
+                + ", telefono='" + telefono + '\''
+                + '}';
     }
 }

@@ -10,106 +10,115 @@ import java.util.List;
 
 public class SocioDAO {
 
-    public boolean agregarSocio(SocioModelo socio) {
-        String sql = "INSERT INTO socios (nombre, direccion, telefono, correo) VALUES (?, ?, ?, ?)";
+    // Registrar socio
+    public boolean registrarSocio(SocioModelo socio) {
+        String sql = "INSERT INTO socios (nombre, correo, direccion, telefono) VALUES (?, ?, ?, ?)";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, socio.getNombre());
-            ps.setString(2, socio.getDireccion());
-            ps.setString(3, socio.getTelefono());
-            ps.setString(4, socio.getCorreo());
-            ps.executeUpdate();
-            return true;
+            ps.setString(2, socio.getCorreo());
+            ps.setString(3, socio.getDireccion());
+            ps.setString(4, socio.getTelefono());
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al registrar socio: " + e.getMessage());
             return false;
         }
     }
-    public boolean existeSocio(int idSocio) {
-        String sql = "SELECT COUNT(*) FROM socios WHERE id_socio = ?";
-        try (Connection conexion = ConexionDB.getConnection();
-             PreparedStatement ps = conexion.prepareStatement(sql)) {
-            ps.setInt(1, idSocio);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;  // Retorna true si existe el socio
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    
-    
 
-    public SocioModelo buscarSocioPorId(int idSocio) {
+    // Modificar socio
+    public boolean modificarSocio(SocioModelo socio) {
+        String sql = "UPDATE socios SET direccion = ?, telefono = ? WHERE nombre = ? AND correo = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, socio.getDireccion());
+            ps.setString(2, socio.getTelefono());
+            ps.setString(3, socio.getNombre());
+            ps.setString(4, socio.getCorreo());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al modificar socio: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Eliminar socio
+    public boolean eliminarSocio(String nombre, String correo) {
+        String sql = "DELETE FROM socios WHERE nombre = ? AND correo = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, correo);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar socio: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Buscar socio por ID
+    public SocioModelo buscarPorId(int id) {
         String sql = "SELECT * FROM socios WHERE id_socio = ?";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idSocio);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new SocioModelo(
-                    rs.getInt("id_socio"),
-                    rs.getString("nombre"),
-                    rs.getString("direccion"),
-                    rs.getString("telefono"),
-                    rs.getString("correo")
+                        rs.getInt("id_socio"),
+                        rs.getString("nombre"),
+                        rs.getString("correo"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono")
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al buscar socio por ID: " + e.getMessage());
         }
         return null;
     }
 
-    public boolean modificarSocio(SocioModelo socio) {
-        String sql = "UPDATE socios SET nombre = ?, direccion = ?, telefono = ?, correo = ? WHERE id_socio = ?";
+    // Buscar socio por nombre y correo
+    public SocioModelo buscarPorNombreYCorreo(String nombre, String correo) {
+        String sql = "SELECT * FROM socios WHERE nombre = ? AND correo = ?";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, socio.getNombre());
-            ps.setString(2, socio.getDireccion());
-            ps.setString(3, socio.getTelefono());
-            ps.setString(4, socio.getCorreo());
-            ps.setInt(5, socio.getIdSocio());
-            ps.executeUpdate();
-            return true;
+            ps.setString(1, nombre);
+            ps.setString(2, correo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new SocioModelo(
+                        rs.getInt("id_socio"),
+                        rs.getString("nombre"),
+                        rs.getString("correo"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono")
+                );
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            System.err.println("Error al buscar socio por nombre y correo: " + e.getMessage());
         }
+        return null;
     }
 
-    public boolean eliminarSocio(int idSocio) {
-        String sql = "DELETE FROM socios WHERE id_socio = ?";
-        try (Connection conexion = ConexionDB.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idSocio);
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public List<SocioModelo> obtenerSocios() {
-        List<SocioModelo> socios = new ArrayList<>();
+    // Obtener todos los socios
+    public List<SocioModelo> obtenerTodos() {
         String sql = "SELECT * FROM socios";
+        List<SocioModelo> socios = new ArrayList<>();
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 socios.add(new SocioModelo(
-                    rs.getInt("id_socio"),
-                    rs.getString("nombre"),
-                    rs.getString("direccion"),
-                    rs.getString("telefono"),
-                    rs.getString("correo")
+                        rs.getInt("id_socio"),
+                        rs.getString("nombre"),
+                        rs.getString("correo"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono")
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener todos los socios: " + e.getMessage());
         }
         return socios;
     }

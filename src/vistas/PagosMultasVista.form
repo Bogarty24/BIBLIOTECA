@@ -58,6 +58,8 @@
                               <Component id="txt_buscar" min="-2" pref="182" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btn_buscar" min="-2" pref="87" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="box_metodoBusqueda" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -79,6 +81,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txt_buscar" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="btn_buscar" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                      <Component id="box_metodoBusqueda" pref="49" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
@@ -87,7 +90,7 @@
                       <Component id="btn_eliminar_multa" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                       <Component id="btn_pagar" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -230,6 +233,20 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="box_metodoBusqueda">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="--Metodo de busqueda--"/>
+                <StringItem index="1" value="id recibo"/>
+                <StringItem index="2" value="id socio"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -1,85 +1,64 @@
 package dao;
 
-import java.sql.ResultSet;
-
-import modelo.PagosMultaModelo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+
+import modelo.PagoMultaModelo;
 
 public class PagoMultaDAO {
 
-    public boolean agregarMulta(PagosMultaModelo multa) {
-        String sql = "INSERT INTO pagos_multas (id_socio, monto, estado, fecha_pago, monto_adicional) VALUES (?, ?, ?, ?, ?)";
+    // Registrar multa
+    public boolean registrarMulta(int idSocio, double montoAdicional) {
+        String sql = "INSERT INTO pagos_multas (id_socio, monto, monto_adicional, estado) VALUES (?, 0.00, ?, 'Pendiente') "
+                + "ON DUPLICATE KEY UPDATE monto_adicional = monto_adicional + VALUES(monto_adicional)";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, multa.getIdSocio());
-            ps.setDouble(2, multa.getMonto());
-            ps.setString(3, multa.getEstado());
-            ps.setString(4, multa.getFechaPago());
-            ps.setDouble(5, multa.getMontoAdicional());
-            ps.executeUpdate();
-            return true;
+            ps.setInt(1, idSocio);
+            ps.setDouble(2, montoAdicional); // Aquí se pasa explícitamente monto_adicional
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al registrar multa: " + e.getMessage());
             return false;
         }
     }
 
-    public boolean actualizarMulta(int idRecibo, double montoAdicional) {
-        String sql = "UPDATE pagos_multas SET monto_adicional = ? WHERE id_recibo = ?";
-        try (Connection conexion = ConexionDB.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setDouble(1, montoAdicional);
-            ps.setInt(2, idRecibo);
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    public List<PagoMultaModelo> obtenerTodos() {
+        List<PagoMultaModelo> multas = new ArrayList<>();
+        String sql = "SELECT * FROM pagos_multas";
 
-    public class PagosMultasDAO {
+        try (Connection conexion = ConexionDB.getConnection();
+             PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        public boolean actualizarMulta(int idRecibo, double montoAdicional) {
-            String sql = "UPDATE pagos_multas SET monto_adicional = ? WHERE id_recibo = ?";
-            try (Connection conexion = ConexionDB.getConnection()) {
-                PreparedStatement ps = conexion.prepareStatement(sql);
-                ps.setDouble(1, montoAdicional);
-                ps.setInt(2, idRecibo);
-                int filasActualizadas = ps.executeUpdate();
-                return filasActualizadas > 0;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-    }
-
-    public PagosMultaModelo buscarMultaPorId(int idRecibo) {
-        String sql = "SELECT * FROM pagos_multas WHERE id_recibo = ?";
-        try (Connection conexion = ConexionDB.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idRecibo);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new PagosMultaModelo(
+            while (rs.next()) {
+                multas.add(new PagoMultaModelo(
                         rs.getInt("id_recibo"),
                         rs.getInt("id_socio"),
                         rs.getDouble("monto"),
-                        rs.getString("estado"),
-                        rs.getDate("fecha_pago") != null ? rs.getDate("fecha_pago").toString() : null,
-                        rs.getDouble("monto_adicional")
-                );
+                        rs.getString("estado")
+                ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener multas: " + e.getMessage());
         }
-        return null;
+        return multas;
+    }
+
+    public boolean actualizarEstado(int idRecibo, String estado) {
+        String sql = "UPDATE pagos_multas SET estado = ? WHERE id_recibo = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, estado);
+            ps.setInt(2, idRecibo);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar estado: " + e.getMessage());
+            return false;
+        }
     }
 
     public boolean eliminarMulta(int idRecibo) {
@@ -87,52 +66,55 @@ public class PagoMultaDAO {
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idRecibo);
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al eliminar multa: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
-    public boolean pagarMulta(int idRecibo) {
-        String sql = "UPDATE pagos_multas SET estado = 'Pagado', fecha_pago = NOW() WHERE id_recibo = ?";
+    public List<PagoMultaModelo> buscarPorIdRecibo(int idRecibo) {
+        List<PagoMultaModelo> multas = new ArrayList<>();
+        String sql = "SELECT * FROM pagos_multas WHERE id_recibo = ?";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idRecibo);
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                multas.add(new PagoMultaModelo(
+                        rs.getInt("id_recibo"),
+                        rs.getInt("id_socio"),
+                        rs.getDouble("monto"),
+                        rs.getString("estado")
+                ));
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al buscar multa por ID recibo: " + e.getMessage());
         }
-        return false;
+        return multas;
     }
 
-    public List<PagosMultaModelo> obtenerTodasLasMultas() {
-    List<PagosMultaModelo> listaMultas = new ArrayList<>();
-    String sql = "SELECT * FROM pagos_multas";
-    
-    try (Connection conexion = ConexionDB.getConnection();
-         PreparedStatement ps = conexion.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        while (rs.next()) {
-            PagosMultaModelo multa = new PagosMultaModelo(
-                rs.getInt("id_recibo"),
-                rs.getInt("id_socio"),
-                rs.getDouble("monto"),
-                rs.getString("estado"),
-                rs.getString("fecha_pago") != null ? rs.getString("fecha_pago") : null,
-                rs.getDouble("monto_adicional")
-            );
-            listaMultas.add(multa);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    
-    return listaMultas;
-}
+    public List<PagoMultaModelo> buscarPorIdSocio(int idSocio) {
+        List<PagoMultaModelo> multas = new ArrayList<>();
+        String sql = "SELECT * FROM pagos_multas WHERE id_socio = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idSocio);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()) {
+                multas.add(new PagoMultaModelo(
+                        rs.getInt("id_recibo"),
+                        rs.getInt("id_socio"),
+                        rs.getDouble("monto"),
+                        rs.getString("estado")
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar multa por ID socio: " + e.getMessage());
+        }
+        return multas;
+    }
 
 }

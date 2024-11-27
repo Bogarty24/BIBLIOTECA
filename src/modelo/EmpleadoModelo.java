@@ -1,30 +1,35 @@
 package modelo;
 
-import java.io.Serializable;
+public class EmpleadoModelo {
 
-public class EmpleadoModelo implements Serializable {
     private int idTrabajador;
-    private String nombreTrabajador;
-    private String apellidoTrabajador;
-    private String telefonoTrabajador;
-    private String emailTrabajador;
-    private String departamentoTrabajador;
+    private String nombre;
+    private String apellidos;
+    private String telefono;
+    private String email;
+    private String departamento;
 
     // Constructor vacío
-    public EmpleadoModelo() {
-    }
+    public EmpleadoModelo() {}
 
-    // Constructor con parámetros
-
-    public EmpleadoModelo(int idTrabajador, String nombreTrabajador, String apellidoTrabajador, String telefonoTrabajador, String emailTrabajador, String departamentoTrabajador) {
+    // Constructor con todos los atributos (incluye ID)
+    public EmpleadoModelo(int idTrabajador, String nombre, String apellidos, String telefono, String email, String departamento) {
         this.idTrabajador = idTrabajador;
-        this.nombreTrabajador = nombreTrabajador;
-        this.apellidoTrabajador = apellidoTrabajador;
-        this.telefonoTrabajador = telefonoTrabajador;
-        this.emailTrabajador = emailTrabajador;
-        this.departamentoTrabajador = departamentoTrabajador;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
+        this.departamento = departamento;
     }
-    
+
+    // Constructor sin ID (para insertar nuevos empleados)
+    public EmpleadoModelo(String nombre, String apellidos, String telefono, String email, String departamento) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.email = email;
+        this.departamento = departamento;
+    }
 
     // Getters y Setters
     public int getIdTrabajador() {
@@ -35,43 +40,55 @@ public class EmpleadoModelo implements Serializable {
         this.idTrabajador = idTrabajador;
     }
 
-    public String getNombreTrabajador() {
-        return nombreTrabajador;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreTrabajador(String nombreTrabajador) {
-        this.nombreTrabajador = nombreTrabajador;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getApellidoTrabajador() {
-        return apellidoTrabajador;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellidoTrabajador(String apellidoTrabajador) {
-        this.apellidoTrabajador = apellidoTrabajador;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public String getTelefonoTrabajador() {
-        return telefonoTrabajador;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTelefonoTrabajador(String telefonoTrabajador) {
-        this.telefonoTrabajador = telefonoTrabajador;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
-    public String getEmailTrabajador() {
-        return emailTrabajador;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailTrabajador(String emailTrabajador) {
-        this.emailTrabajador = emailTrabajador;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getDepartamentoTrabajador() {
-        return departamentoTrabajador;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setDepartamentoTrabajador(String departamentoTrabajador) {
-        this.departamentoTrabajador = departamentoTrabajador;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    @Override
+    public String toString() {
+        return "EmpleadoModelo{" +
+                "idTrabajador=" + idTrabajador +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", email='" + email + '\'' +
+                ", departamento='" + departamento + '\'' +
+                '}';
     }
 }

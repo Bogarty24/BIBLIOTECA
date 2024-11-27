@@ -1,56 +1,88 @@
 package dao;
 
 import modelo.PrestamoModelo;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PrestamoDAO {
-    public boolean agregarPrestamo(PrestamoModelo prestamo) {
+
+    // Registrar préstamo
+    public boolean registrarPrestamo(PrestamoModelo prestamo) {
         String sql = "INSERT INTO prestamos (id_libro, id_socio, fecha_prestamo) VALUES (?, ?, ?)";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, prestamo.getIdLibro());
             ps.setInt(2, prestamo.getIdSocio());
             ps.setString(3, prestamo.getFechaPrestamo());
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al registrar préstamo: " + e.getMessage());
             return false;
         }
     }
 
-    public PrestamoModelo buscarPrestamoPorId(int idPrestamo) {
-    String sql = "SELECT * FROM prestamos WHERE id_prestamo = ?";
-    try (Connection conexion = ConexionDB.getConnection()) {
-        PreparedStatement ps = conexion.prepareStatement(sql);
-        ps.setInt(1, idPrestamo);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return new PrestamoModelo(
-                rs.getInt("id_prestamo"),
-                rs.getInt("id_libro"),
-                rs.getInt("id_socio"),
-                rs.getString("fecha_prestamo"),
-                rs.getString("fecha_devolucion")
-            );
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return null;
-}
-
-
-    public boolean devolverPrestamo(int idPrestamo) {
-        String sql = "UPDATE prestamos SET fecha_devolucion = NOW() WHERE id_prestamo = ?";
+    // Actualizar fecha de devolución
+    public boolean devolverPrestamo(int idLibro, int idSocio, String fechaDevolucion) {
+        String sql = "UPDATE prestamos SET fecha_devolucion = ? WHERE id_libro = ? AND id_socio = ? AND fecha_devolucion IS NULL";
         try (Connection conexion = ConexionDB.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idPrestamo);
-            int filasActualizadas = ps.executeUpdate();
-            return filasActualizadas > 0;
+            ps.setString(1, fechaDevolucion);
+            ps.setInt(2, idLibro);
+            ps.setInt(3, idSocio);
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al devolver préstamo: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Obtener fecha de préstamo
+    public String obtenerFechaPrestamo(int idLibro, int idSocio) {
+        String sql = "SELECT fecha_prestamo FROM prestamos WHERE id_libro = ? AND id_socio = ? AND fecha_devolucion IS NULL";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idLibro);
+            ps.setInt(2, idSocio);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("fecha_prestamo");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener fecha de préstamo: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean existeSocio(int idSocio) {
+        String sql = "SELECT COUNT(*) AS total FROM socios WHERE id_socio = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idSocio);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar existencia del socio: " + e.getMessage());
         }
         return false;
     }
+
+    public boolean existeLibro(int idLibro) {
+        String sql = "SELECT COUNT(*) AS total FROM libros WHERE id_libro = ?";
+        try (Connection conexion = ConexionDB.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idLibro);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar existencia del libro: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

@@ -19,6 +19,15 @@ public class GestionEmpleadosVista extends javax.swing.JFrame {
      */
     public GestionEmpleadosVista() {
         initComponents();
+        cargarDepartamentos(); // Método para cargar departamentos
+    }
+
+    private void cargarDepartamentos() {
+        box_departamento.addItem("Recursos Humanos");
+        box_departamento.addItem("Ventas");
+        box_departamento.addItem("Desarrollo");
+        box_departamento.addItem("Marketing");
+        box_departamento.addItem("Soporte Técnico");
     }
 
     /**
@@ -32,23 +41,21 @@ public class GestionEmpleadosVista extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txt_id_trab = new javax.swing.JTextField();
-        txt_nombre_trab = new javax.swing.JTextField();
+        txt_nombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txt_email_trab = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btn_ver_empleado = new javax.swing.JButton();
-        btn_modificar_trab = new javax.swing.JButton();
-        btn_registrar_trab = new javax.swing.JButton();
-        btn_buscar_trab = new javax.swing.JButton();
-        txt_apellidos_trab = new javax.swing.JTextField();
-        txt_telefono_trab = new javax.swing.JTextField();
-        box_departamento_trab = new javax.swing.JComboBox<>();
-        btn_eliminar_trab = new javax.swing.JButton();
+        btn_verEmpleados = new javax.swing.JButton();
+        btn_modificarEmpleado = new javax.swing.JButton();
+        btn_registrarEmpleado = new javax.swing.JButton();
+        btn_buscarEmpleado = new javax.swing.JButton();
+        txt_apellidos = new javax.swing.JTextField();
+        txt_telefono = new javax.swing.JTextField();
+        box_departamento = new javax.swing.JComboBox<>();
+        btn_eliminarEmpleado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Empleados");
@@ -58,28 +65,19 @@ public class GestionEmpleadosVista extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Gestión de Empleados");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ID_trabajador:");
-
-        txt_id_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_id_trab.setToolTipText("");
-        txt_id_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
-        txt_id_trab.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        txt_nombre_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_nombre_trab.setToolTipText("");
-        txt_nombre_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
-        txt_nombre_trab.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_nombre.setToolTipText("");
+        txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
+        txt_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nombre:");
 
-        txt_email_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_email_trab.setToolTipText("");
-        txt_email_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
-        txt_email_trab.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_email.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_email.setToolTipText("");
+        txt_email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
+        txt_email.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,66 +95,66 @@ public class GestionEmpleadosVista extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Email:");
 
-        btn_ver_empleado.setBackground(new java.awt.Color(65, 237, 206));
-        btn_ver_empleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_ver_empleado.setText("Ver Lista de Empleados");
-        btn_ver_empleado.setBorder(new javax.swing.border.MatteBorder(null));
-        btn_ver_empleado.addActionListener(new java.awt.event.ActionListener() {
+        btn_verEmpleados.setBackground(new java.awt.Color(65, 237, 206));
+        btn_verEmpleados.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_verEmpleados.setText("Ver Lista de Empleados");
+        btn_verEmpleados.setBorder(new javax.swing.border.MatteBorder(null));
+        btn_verEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ver_empleadoActionPerformed(evt);
+                btn_verEmpleadosActionPerformed(evt);
             }
         });
 
-        btn_modificar_trab.setBackground(new java.awt.Color(65, 237, 206));
-        btn_modificar_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_modificar_trab.setText("Modificar");
-        btn_modificar_trab.setBorder(new javax.swing.border.MatteBorder(null));
-        btn_modificar_trab.addActionListener(new java.awt.event.ActionListener() {
+        btn_modificarEmpleado.setBackground(new java.awt.Color(65, 237, 206));
+        btn_modificarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_modificarEmpleado.setText("Modificar");
+        btn_modificarEmpleado.setBorder(new javax.swing.border.MatteBorder(null));
+        btn_modificarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_modificar_trabActionPerformed(evt);
+                btn_modificarEmpleadoActionPerformed(evt);
             }
         });
 
-        btn_registrar_trab.setBackground(new java.awt.Color(65, 237, 206));
-        btn_registrar_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_registrar_trab.setText("Registrar");
-        btn_registrar_trab.setBorder(new javax.swing.border.MatteBorder(null));
-        btn_registrar_trab.addActionListener(new java.awt.event.ActionListener() {
+        btn_registrarEmpleado.setBackground(new java.awt.Color(65, 237, 206));
+        btn_registrarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_registrarEmpleado.setText("Registrar");
+        btn_registrarEmpleado.setBorder(new javax.swing.border.MatteBorder(null));
+        btn_registrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_registrar_trabActionPerformed(evt);
+                btn_registrarEmpleadoActionPerformed(evt);
             }
         });
 
-        btn_buscar_trab.setBackground(new java.awt.Color(65, 237, 206));
-        btn_buscar_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_buscar_trab.setText("Buscar");
-        btn_buscar_trab.setBorder(new javax.swing.border.MatteBorder(null));
-        btn_buscar_trab.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscarEmpleado.setBackground(new java.awt.Color(65, 237, 206));
+        btn_buscarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_buscarEmpleado.setText("Buscar");
+        btn_buscarEmpleado.setBorder(new javax.swing.border.MatteBorder(null));
+        btn_buscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscar_trabActionPerformed(evt);
+                btn_buscarEmpleadoActionPerformed(evt);
             }
         });
 
-        txt_apellidos_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_apellidos_trab.setToolTipText("");
-        txt_apellidos_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
-        txt_apellidos_trab.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_apellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_apellidos.setToolTipText("");
+        txt_apellidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
+        txt_apellidos.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        txt_telefono_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_telefono_trab.setToolTipText("");
-        txt_telefono_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
-        txt_telefono_trab.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_telefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_telefono.setToolTipText("");
+        txt_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 3));
+        txt_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        box_departamento_trab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--selecionar una opcion--", "Administración", "Atención al Cliente", "Préstamos y Devoluciones", "Catalogación", "Mantenimiento", "TI (Tecnología de la Información)", "Logística" }));
-        box_departamento_trab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 2));
+        box_departamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--selecionar una opcion--", "Administración", "Atención al Cliente", "Préstamos y Devoluciones", "Catalogación", "Mantenimiento", "TI (Tecnología de la Información)", "Logística" }));
+        box_departamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(106, 176, 155), 2));
 
-        btn_eliminar_trab.setBackground(new java.awt.Color(65, 237, 206));
-        btn_eliminar_trab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btn_eliminar_trab.setText("Eliminar");
-        btn_eliminar_trab.setBorder(new javax.swing.border.MatteBorder(null));
-        btn_eliminar_trab.addActionListener(new java.awt.event.ActionListener() {
+        btn_eliminarEmpleado.setBackground(new java.awt.Color(65, 237, 206));
+        btn_eliminarEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_eliminarEmpleado.setText("Eliminar");
+        btn_eliminarEmpleado.setBorder(new javax.swing.border.MatteBorder(null));
+        btn_eliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminar_trabActionPerformed(evt);
+                btn_eliminarEmpleadoActionPerformed(evt);
             }
         });
 
@@ -164,232 +162,217 @@ public class GestionEmpleadosVista extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_registrar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_modificar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_buscar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(btn_registrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_nombre_trab)
-                                    .addComponent(txt_id_trab)
-                                    .addComponent(txt_apellidos_trab)
-                                    .addComponent(txt_email_trab)
-                                    .addComponent(txt_telefono_trab)
-                                    .addComponent(box_departamento_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel1))
-                        .addGap(99, 99, 99))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_eliminar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_modificarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_buscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(box_departamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_telefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_apellidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(183, 183, 183)
+                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_eliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_ver_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))))
+                        .addComponent(btn_verEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_id_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nombre_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_apellidos_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_telefono_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_email_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(box_departamento_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_modificar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_registrar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(btn_registrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_modificarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_ver_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_eliminar_trab, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45))
+                    .addComponent(btn_eliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_verEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_ver_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ver_empleadoActionPerformed
+    private void btn_verEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verEmpleadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ver_empleadoActionPerformed
+    }//GEN-LAST:event_btn_verEmpleadosActionPerformed
 
-    private void btn_modificar_trabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificar_trabActionPerformed
+    private void btn_modificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarEmpleadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_modificar_trabActionPerformed
+    }//GEN-LAST:event_btn_modificarEmpleadoActionPerformed
 
-    private void btn_registrar_trabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_trabActionPerformed
+    private void btn_registrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarEmpleadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_registrar_trabActionPerformed
+    }//GEN-LAST:event_btn_registrarEmpleadoActionPerformed
 
-    private void btn_buscar_trabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_trabActionPerformed
+    private void btn_buscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarEmpleadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_buscar_trabActionPerformed
+    }//GEN-LAST:event_btn_buscarEmpleadoActionPerformed
 
-    private void btn_eliminar_trabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_trabActionPerformed
+    private void btn_eliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_eliminar_trabActionPerformed
+    }//GEN-LAST:event_btn_eliminarEmpleadoActionPerformed
 
-    public JComboBox<String> getBox_departamento_trab() {
-        return box_departamento_trab;
+    public JComboBox<String> getBox_departamento() {
+        return box_departamento;
     }
 
-    public void setBox_departamento_trab(JComboBox<String> box_departamento_trab) {
-        this.box_departamento_trab = box_departamento_trab;
+    public void setBox_departamento(JComboBox<String> box_departamento) {
+        this.box_departamento = box_departamento;
     }
 
-    public JButton getBtn_buscar_trab() {
-        return btn_buscar_trab;
+    public JButton getBtn_buscarEmpleado() {
+        return btn_buscarEmpleado;
     }
 
-    public void setBtn_buscar_trab(JButton btn_buscar_trab) {
-        this.btn_buscar_trab = btn_buscar_trab;
+    public void setBtn_buscarEmpleado(JButton btn_buscarEmpleado) {
+        this.btn_buscarEmpleado = btn_buscarEmpleado;
     }
 
-    public JButton getBtn_eliminar_trab() {
-        return btn_eliminar_trab;
+    public JButton getBtn_eliminarEmpleado() {
+        return btn_eliminarEmpleado;
     }
 
-    public void setBtn_eliminar_trab(JButton btn_eliminar_trab) {
-        this.btn_eliminar_trab = btn_eliminar_trab;
+    public void setBtn_eliminarEmpleado(JButton btn_eliminarEmpleado) {
+        this.btn_eliminarEmpleado = btn_eliminarEmpleado;
     }
 
-    public JButton getBtn_modificar_trab() {
-        return btn_modificar_trab;
+    public JButton getBtn_modificarEmpleado() {
+        return btn_modificarEmpleado;
     }
 
-    public void setBtn_modificar_trab(JButton btn_modificar_trab) {
-        this.btn_modificar_trab = btn_modificar_trab;
+    public void setBtn_modificarEmpleado(JButton btn_modificarEmpleado) {
+        this.btn_modificarEmpleado = btn_modificarEmpleado;
     }
 
-    public JButton getBtn_registrar_trab() {
-        return btn_registrar_trab;
+    public JButton getBtn_registrarEmpleado() {
+        return btn_registrarEmpleado;
     }
 
-    public void setBtn_registrar_trab(JButton btn_registrar_trab) {
-        this.btn_registrar_trab = btn_registrar_trab;
+    public void setBtn_registrarEmpleado(JButton btn_registrarEmpleado) {
+        this.btn_registrarEmpleado = btn_registrarEmpleado;
     }
 
-    public JButton getBtn_ver_empleado() {
-        return btn_ver_empleado;
+    public JButton getBtn_verEmpleados() {
+        return btn_verEmpleados;
     }
 
-    public void setBtn_ver_empleado(JButton btn_ver_empleado) {
-        this.btn_ver_empleado = btn_ver_empleado;
+    public void setBtn_verEmpleados(JButton btn_verEmpleados) {
+        this.btn_verEmpleados = btn_verEmpleados;
     }
 
-    public JTextField getTxt_apellidos_trab() {
-        return txt_apellidos_trab;
+    public JTextField getTxt_apellidos() {
+        return txt_apellidos;
     }
 
-    public void setTxt_apellidos_trab(JTextField txt_apellidos_trab) {
-        this.txt_apellidos_trab = txt_apellidos_trab;
+    public void setTxt_apellidos(JTextField txt_apellidos) {
+        this.txt_apellidos = txt_apellidos;
     }
 
-    public JTextField getTxt_email_trab() {
-        return txt_email_trab;
+    public JTextField getTxt_email() {
+        return txt_email;
     }
 
-    public void setTxt_email_trab(JTextField txt_email_trab) {
-        this.txt_email_trab = txt_email_trab;
+    public void setTxt_email(JTextField txt_email) {
+        this.txt_email = txt_email;
     }
 
-    public JTextField getTxt_id_trab() {
-        return txt_id_trab;
+    public JTextField getTxt_nombre() {
+        return txt_nombre;
     }
 
-    public void setTxt_id_trab(JTextField txt_id_trab) {
-        this.txt_id_trab = txt_id_trab;
+    public void setTxt_nombre(JTextField txt_nombre) {
+        this.txt_nombre = txt_nombre;
     }
 
-    public JTextField getTxt_nombre_trab() {
-        return txt_nombre_trab;
+    public JTextField getTxt_telefono() {
+        return txt_telefono;
     }
 
-    public void setTxt_nombre_trab(JTextField txt_nombre_trab) {
-        this.txt_nombre_trab = txt_nombre_trab;
+    public void setTxt_telefono(JTextField txt_telefono) {
+        this.txt_telefono = txt_telefono;
     }
-
-    public JTextField getTxt_telefono_trab() {
-        return txt_telefono_trab;
-    }
-
-    public void setTxt_telefono_trab(JTextField txt_telefono_trab) {
-        this.txt_telefono_trab = txt_telefono_trab;
-    }
-
-   
-
-   
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> box_departamento_trab;
-    private javax.swing.JButton btn_buscar_trab;
-    private javax.swing.JButton btn_eliminar_trab;
-    private javax.swing.JButton btn_modificar_trab;
-    private javax.swing.JButton btn_registrar_trab;
-    private javax.swing.JButton btn_ver_empleado;
+    private javax.swing.JComboBox<String> box_departamento;
+    private javax.swing.JButton btn_buscarEmpleado;
+    private javax.swing.JButton btn_eliminarEmpleado;
+    private javax.swing.JButton btn_modificarEmpleado;
+    private javax.swing.JButton btn_registrarEmpleado;
+    private javax.swing.JButton btn_verEmpleados;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txt_apellidos_trab;
-    private javax.swing.JTextField txt_email_trab;
-    private javax.swing.JTextField txt_id_trab;
-    private javax.swing.JTextField txt_nombre_trab;
-    private javax.swing.JTextField txt_telefono_trab;
+    private javax.swing.JTextField txt_apellidos;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_nombre;
+    private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,6 @@ public class UsuarioModelo {
     private String email;
     private String telefono;
 
-    // Constructor
     public UsuarioModelo(String nombreUsuario, String contrasena, String tipoUsuario, String email, String telefono) {
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
@@ -17,7 +16,6 @@ public class UsuarioModelo {
         this.telefono = telefono;
     }
 
-    // Getters y setters
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -66,4 +64,3 @@ public class UsuarioModelo {
         this.telefono = telefono;
     }
 }
-

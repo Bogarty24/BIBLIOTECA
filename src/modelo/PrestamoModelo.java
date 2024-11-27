@@ -8,7 +8,10 @@ public class PrestamoModelo {
     private String fechaPrestamo;
     private String fechaDevolucion;
 
-    // Constructor con todos los parámetros
+    // Constructor vacío
+    public PrestamoModelo() {}
+
+    // Constructor completo
     public PrestamoModelo(int idPrestamo, int idLibro, int idSocio, String fechaPrestamo, String fechaDevolucion) {
         this.idPrestamo = idPrestamo;
         this.idLibro = idLibro;
@@ -17,7 +20,15 @@ public class PrestamoModelo {
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    // Getters y setters
+    // Constructor sin ID de préstamo
+    public PrestamoModelo(int idLibro, int idSocio, String fechaPrestamo, String fechaDevolucion) {
+        this.idLibro = idLibro;
+        this.idSocio = idSocio;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
+    // Getters y Setters
     public int getIdPrestamo() {
         return idPrestamo;
     }

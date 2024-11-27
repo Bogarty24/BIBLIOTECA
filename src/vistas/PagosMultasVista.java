@@ -5,6 +5,7 @@
 package vistas;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -47,6 +48,7 @@ public class PagosMultasVista extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
+        box_metodoBusqueda = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagos y multas");
@@ -105,6 +107,8 @@ public class PagosMultasVista extends javax.swing.JFrame {
             }
         });
 
+        box_metodoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Metodo de busqueda--", "id recibo", "id socio" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,7 +125,9 @@ public class PagosMultasVista extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(box_metodoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,14 +142,15 @@ public class PagosMultasVista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_metodoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_eliminar_multa, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,6 +179,14 @@ public class PagosMultasVista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    public JComboBox<String> getBox_metodoBusqueda() {
+        return box_metodoBusqueda;
+    }
+
+    public void setBox_metodoBusqueda(JComboBox<String> box_metodoBusqueda) {
+        this.box_metodoBusqueda = box_metodoBusqueda;
+    }
+
     public JButton getBtn_buscar() {
         return btn_buscar;
     }
@@ -196,14 +211,6 @@ public class PagosMultasVista extends javax.swing.JFrame {
         this.btn_pagar = btn_pagar;
     }
 
-    public JScrollPane getjScrollPane1() {
-        return jScrollPane1;
-    }
-
-    public void setjScrollPane1(JScrollPane jScrollPane1) {
-        this.jScrollPane1 = jScrollPane1;
-    }
-
     public JTable getTabla_pagos_multas() {
         return tabla_pagos_multas;
     }
@@ -220,9 +227,12 @@ public class PagosMultasVista extends javax.swing.JFrame {
         this.txt_buscar = txt_buscar;
     }
 
+   
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> box_metodoBusqueda;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_eliminar_multa;
     private javax.swing.JButton btn_pagar;
